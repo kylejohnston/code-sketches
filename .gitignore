@@ -1,4 +1,3 @@
-build-tmp
-output
-output/**
-**/output/**
+**/build-tmp
+**/output
+*.tiff
