@@ -6,15 +6,17 @@ import hype.extended.colorist.HColorPool;
 import hype.extended.behavior.HOscillator;
 // import hype.extended.colorist.HPixelColorist;
 
-int           stageW    = 1440;
-int           stageH    = 900;
+int           stageW    = 1080;
+int           stageH    = 1920;
 color         clrBG     = #520001;
 String        pathDATA  = "../../data/";
+int           renderMax  = 900; // how many frames to output
+String        renderPATH = "../output/1080x1920/";
 
 HColorPool    colors;
 HDrawablePool pool;
 
-float         ringScale = 600;
+float         ringScale = 1500;
 int           ringSteps = 5;
 boolean       recording = false;
 
@@ -73,6 +75,7 @@ void setup() {
 					new HOscillator().target(d).property(H.ROTATIONY).range(-360, 360).speed(0.25).freq(1).waveform(H.SINE).currentStep(i);
 					new HOscillator().target(d).property(H.ROTATIONZ).range(-360, 360).speed(0.125).freq(1).waveform(H.SINE).currentStep(i);
 					new HOscillator().target(d).property(H.SCALE).range(0.25, 1.0).speed(0.25).freq(1).waveform(H.SINE).currentStep(i);
+					new HOscillator().target(d).property(H.ALPHA).range(-10, 90).speed(0.5).freq(0.4).waveform(H.SAW).currentStep(i);
 
 // VARIATION 2 - Rotate Z, SCALE
 					// new HOscillator().target(d).property(H.ROTATIONZ).range(-540, 540).speed(0.05).freq(PI/2).currentStep(i);
@@ -93,7 +96,7 @@ void draw() {
   // The number signs (#) indicate to Processing to 
   // number the files automatically
   if (recording) {
-    saveFrame("output/frames####.png");
+    saveFrame("../output/1080x1920/frames####.tiff"); if (frameCount == renderMax) exit();
   }
   // Let's draw some stuff to tell us what is happening
   // It's important to note that none of this will show up in the
@@ -101,10 +104,10 @@ void draw() {
   textAlign(CENTER);
   fill(255);
   if (!recording) {
-    text("Press r to start recording.", width/2, height-100);
+    text("Press r to start recording.", width/2, 100);
   } 
   else {
-    text("Press r to stop recording.", width/2, height-100);
+    text("Press r to stop recording.", width/2, 100);
   }
   
   // A red dot for when we are recording
@@ -119,6 +122,7 @@ void draw() {
 
 void keyPressed() {
   // If we press r, start or stop recording!
+  if (frameCount == renderMax) exit();
   if (key == 'r' || key == 'R') {
     recording = !recording;
   }
