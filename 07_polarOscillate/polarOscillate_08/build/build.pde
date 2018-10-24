@@ -8,15 +8,20 @@ import hype.extended.layout.HPolarLayout;
 
 int           stageW     = 1080;
 int           stageH     = 1920;
-color         clrBG      = #050514;
+color         clrBG      = #222034;
 String        pathDATA   = "../../data/";
 
 // LETS RENDER IMAGES ****************************************************
 
 boolean       letsRender = false;
 int           renderNum  = 0;
-int           renderMax  = 900; // how many frames to output
-String        renderPATH = "../output/1080x1920/";
+int           renderMax  = 1200; // how many frames to output
+String        renderPATH = "../output/1080x1920-b/";
+
+
+float         ringScale = 800;
+int           ringSteps = 10;
+boolean       recording = false;
 
 // ***********************************************************************
 
@@ -29,6 +34,7 @@ void settings() {
 
 void setup() {
 	H.init(this).background(clrBG);
+	smooth();
 
 	// canvas = H.add(new HCanvas()).autoClear(false).fade(3);
 	canvas = H.add(new HCanvas()).autoClear(false).fade(2);
@@ -39,9 +45,9 @@ void setup() {
 		// .add(new HPath().star(2, 0.6, -90).size(20).anchor(0, 75).stroke(#0072CE).alpha(60).noFill())
 		// .add(new HPath().star(1, 0.6, -90).size(32).anchor(0, 75).stroke(#FFFFFF).alpha(60).noFill())
 
-		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).stroke(#00FF00).strokeWeight(2).noFill().alpha(100))
-		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).stroke(#0072CE).strokeWeight(2).noFill().alpha(100))
-		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).stroke(#FFFFFF).strokeWeight(2).noFill().alpha(100))
+		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#462FE8).noStroke().alpha(100))
+		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#694EFB).noStroke().alpha(100))
+		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#FFFFFF).noStroke().alpha(100))
 
 		.layout(
 			new HPolarLayout(0.25, 10)
@@ -53,10 +59,11 @@ void setup() {
 				public void run(Object obj) {
 					int       i = pool.currentIndex();
 					HDrawable d = (HDrawable) obj;
-					new HOscillator().target(d).property(H.SIZE).range(PI,TWO_PI*PI).speed(1).freq(.5).waveform(H.SINE).currentStep(i);
+					ringScale = ringScale - ringSteps;
+					new HOscillator().target(d).property(H.SIZE).range(ringScale,PI*PI).speed(1).freq(.5).waveform(H.SINE).currentStep(i);
 					new HOscillator().target(d).property(H.SCALE).range(PI*TWO_PI,TWO_PI*TWO_PI).speed(2).freq(1).waveform(H.SINE).currentStep(i);
 					new HOscillator().target(d).property(H.ROTATION).range(-360,360).speed(1).freq(.4).waveform(H.SINE).currentStep(i);
-					new HOscillator().target(d).property(H.ALPHA).range(-20,50).speed(2).freq(.08).waveform(H.SINE).currentStep(i);
+					new HOscillator().target(d).property(H.ALPHA).range(-20,90).speed(4).freq(.06).waveform(H.SINE).currentStep(i);
 				}
 			}
 		)
@@ -66,5 +73,5 @@ void setup() {
 
 void draw() {
 	H.drawStage();
-	// saveFrame(renderPATH + "/#########.tiff"); if (frameCount == renderMax) exit();
+	saveFrame(renderPATH + "/#########.tiff"); if (frameCount == renderMax) exit();
 }
