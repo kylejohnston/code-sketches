@@ -15,8 +15,8 @@ String        pathDATA   = "../../data/";
 
 boolean       letsRender = false;
 int           renderNum  = 0;
-int           renderMax  = 1200; // how many frames to output
-String        renderPATH = "../output/1080x1920-b/";
+int           renderMax  = 990; // how many frames to output
+String        renderPATH = "../output/1080x1920/";
 
 
 float         ringScale = 800;
@@ -36,18 +36,13 @@ void setup() {
 	H.init(this).background(clrBG);
 	smooth();
 
-	// canvas = H.add(new HCanvas()).autoClear(false).fade(3);
 	canvas = H.add(new HCanvas()).autoClear(false).fade(2);
 
 	pool = new HDrawablePool(700);
 	pool.autoParent(canvas)
-		// .add(new HPath().star(2, 0.6, -90).size(24).anchor(0, 75).stroke(#00FF00).alpha(60).noFill())
-		// .add(new HPath().star(2, 0.6, -90).size(20).anchor(0, 75).stroke(#0072CE).alpha(60).noFill())
-		// .add(new HPath().star(1, 0.6, -90).size(32).anchor(0, 75).stroke(#FFFFFF).alpha(60).noFill())
-
-		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#462FE8).noStroke().alpha(100))
-		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#694EFB).noStroke().alpha(100))
-		.add(new HEllipse().size(PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#FFFFFF).noStroke().alpha(100))
+		.add(new HEllipse().size(TWO_PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#462FE8).noStroke().alpha(100))
+		.add(new HEllipse().size(TWO_PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#694EFB).noStroke().alpha(100))
+		.add(new HEllipse().size(TWO_PI).anchor(PI*TWO_PI,PI*TWO_PI).fill(#FFFFFF).noStroke().alpha(100))
 
 		.layout(
 			new HPolarLayout(0.25, 10)
@@ -73,5 +68,5 @@ void setup() {
 
 void draw() {
 	H.drawStage();
-	saveFrame(renderPATH + "/#########.tiff"); if (frameCount == renderMax) exit();
+	saveFrame(renderPATH + "/#########.png"); if (frameCount == renderMax) exit();
 }
