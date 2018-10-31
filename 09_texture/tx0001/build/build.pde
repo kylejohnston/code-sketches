@@ -1,8 +1,8 @@
 import hype.*;
 import hype.extended.behavior.HOscillator;
 
-int       stageW      = 1340;
-int       stageH      = 800;
+int       stageW      = 1920;
+int       stageH      = 1080;
 
 color     clrBG       = #CCCCCC;
 
@@ -13,7 +13,7 @@ String    pathDATA    = "../../data/";
 int    numAssets  = 100;
 int    renderNum  = 0;
 int    renderMax  = 2580;                    // how many frames to output
-String renderPATH = "../output/1080x1920/";
+String renderPATH = "../output/1920x1080/";
 
 
 // ********************************************************************************************************************
@@ -137,7 +137,7 @@ void draw(){
 	updateColorFlow(); // COLOR FLOWS
 	surface.setTitle( int(frameRate) + " FPS" );
 
-	// saveFrame(renderPATH + "/#########.tiff"); if (frameCount == renderMax) exit();
+	saveFrame(renderPATH + "/#########.tiff"); if (frameCount == renderMax) exit();
 
 }
 
