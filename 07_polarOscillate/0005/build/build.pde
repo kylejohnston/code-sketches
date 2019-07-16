@@ -59,5 +59,5 @@ void setup() {
 
 void draw() {
 	H.drawStage();
-	saveFrame(renderPATH + "/#########.tiff"); if (frameCount == renderMax) exit();
+	// saveFrame(renderPATH + "/#########.tiff"); if (frameCount == renderMax) exit();
 }

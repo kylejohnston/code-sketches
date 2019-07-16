@@ -53,5 +53,5 @@ void setup() {
 
 void draw() {
 	H.drawStage();
-	saveFrame("../output/800x600/#########.tiff"); if (frameCount == 900) exit();
+	// saveFrame("../output/800x600/#########.tiff"); if (frameCount == 900) exit();
 }

@@ -98,7 +98,7 @@ void draw() {
 }
 void saveVector() {
 	PGraphics tmp = null;
-	tmp = beginRecord(PDF, "../output/render_#####.pdf");
+	// tmp = beginRecord(PDF, "../output/render_#####.pdf");
 
 	if (tmp == null) {
 		H.drawStage();
